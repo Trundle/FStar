@@ -1,19 +1,19 @@
 (** The [int] type and the various default operators. *)
-type int      = Big_int_Z.big_int
+type int      = Big_int.big_int
 type nonzero  = int
-let ( + )     = Big_int_Z.add_big_int
-let ( - )     = Big_int_Z.sub_big_int
-let ( * )     = Big_int_Z.mult_big_int
-let ( / )     = Big_int_Z.div_big_int
-let ( <= )    = Big_int_Z.le_big_int
-let ( >= )    = Big_int_Z.ge_big_int
-let ( < )     = Big_int_Z.lt_big_int
-let ( > )     = Big_int_Z.gt_big_int
-let ( mod )   = Big_int_Z.mod_big_int
-let ( ~- )    = Big_int_Z.minus_big_int
-let abs       = Big_int_Z.abs_big_int
-let parse_int = Big_int_Z.big_int_of_string
-let to_string = Big_int_Z.string_of_big_int
+let ( + )     = Big_int.add_big_int
+let ( - )     = Big_int.sub_big_int
+let ( * )     = Big_int.mult_big_int
+let ( / )     = Big_int.div_big_int
+let ( <= )    = Big_int.le_big_int
+let ( >= )    = Big_int.ge_big_int
+let ( < )     = Big_int.lt_big_int
+let ( > )     = Big_int.gt_big_int
+let ( mod )   = Big_int.mod_big_int
+let ( ~- )    = Big_int.minus_big_int
+let abs       = Big_int.abs_big_int
+let parse_int = Big_int.big_int_of_string
+let to_string = Big_int.string_of_big_int
 
 (** Some misc. types defined in Prims *)
 type nonrec unit = unit
@@ -168,11 +168,11 @@ let __proj__Mkdtuple4__item___4 = function
   | Mkdtuple4 (x1, x2, x3, x4) -> x4
 
 let rec pow2 n =
-  let open Z in
-  if n = ~$0 then
-    ~$1
+  let open Big_int in
+  if n = zero_big_int then
+    unit_big_int
   else
-    ~$2 * pow2 (n - ~$1)
+    (big_int_of_int 2) * pow2 (n - unit_big_int)
 
 let __proj__Cons__item__tl = function
   | _::tl -> tl

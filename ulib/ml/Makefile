@@ -6,7 +6,7 @@ else
 	ST=FStar_ST.ml FStar_All.ml
 endif
 
-FILES=prims.ml FStar_Mul.ml FStar_Float.ml FStar_Char.ml \
+FILES=z.ml prims.ml FStar_Mul.ml FStar_Float.ml FStar_Char.ml \
       FStar_Int8.ml FStar_UInt8.ml FStar_Int16.ml FStar_UInt16.ml \
       FStar_Int32.ml FStar_UInt32.ml FStar_Int64.ml FStar_UInt64.ml FStar_UInt128.ml \
       FStar_Int_Cast.ml \
@@ -15,24 +15,24 @@ FILES=prims.ml FStar_Mul.ml FStar_Float.ml FStar_Char.ml \
       FStar_Option.ml FStar_String.ml FStar_Set.ml \
       FStar_Buffer.ml FStar_CommonST.ml $(ST)
 
-OCAMLOPT=ocamlfind opt -thread -package batteries,zarith,stdint -linkpkg -g $(INCLUDES)
+OCAMLOPT=ocamlfind c -thread -package batteries,stdint -linkpkg -g $(INCLUDES)
 OCAMLDEP=ocamlfind dep
 OCAMLMKLIB=ocamlfind mklib
 
 OBJS=$(FILES:.ml=.o)
-CMX=$(FILES:.ml=.cmx)
+CMO=$(FILES:.ml=.cmo)
 
 .mgen:
 	make -C .. mgen
 
 all: .mgen
-	make $(OBJS)
-	ocamlopt -a $(CMX) -o fstarlib.cmxa
+	make $(CMO)
+	ocamlc -a $(CMO) -o fstarlib.cma
 
 # Common rules
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
+.SUFFIXES: .ml .mli .cmo .cmi .cmo
 
-%.o: %.ml
+%.cmo: %.ml
 	$(OCAMLOPT) $(OCAMLOPTFLAGS) -c -I $(PRIMS_DIR) $(ULIB_GEN_DIR) -linkpkg $<
 
 depend:
