@@ -17,5 +17,5 @@ endif
 
 OCAMLOPT_=ocamlfind opt -package batteries,stdint,zarith -linkpkg -g
 OCAMLOPT=$(OCAMLOPT_) $(OCAML_DEFAULT_FLAGS)
-OCAMLC_=ocamlfind c -package batteries,stdint -linkpkg -g -I $(ULIB_ML)
+OCAMLC_=ocamlfind c -package batteries,stdint,js_of_ocaml -linkpkg -g -I $(ULIB_ML)
 OCAMLC=$(OCAMLC_) $(OCAML_DEFAULT_FLAGS)
